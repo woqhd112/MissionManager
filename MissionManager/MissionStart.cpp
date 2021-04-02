@@ -159,7 +159,7 @@ void MissionStart::OnBnClickedButtonStartExtract()
 	MissionItem* extractMission = curentMissionList.at(nRandomValue);
 
 	if (extractMission->GetEvent()->GetEventType() == 3)
-	{
+	{ 
 		CString strSheild;
 		int nSheildCount = sheildList.size();
 		strSheild.Format(_T("%d"), nSheildCount + 1);
