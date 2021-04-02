@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{66b8f303-24b0-469f-894d-51d6dd789e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{225920bb-c0c8-45f7-b0d3-7683c1e5a81c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VersionSelect">
+      <UniqueIdentifier>{2937ac6e-3f98-4d6c-b7b4-ea793e6afd19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MissionManage">
+      <UniqueIdentifier>{888f49ba-942a-44de-92d6-eb3942e9c980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MissionStart">
+      <UniqueIdentifier>{c3295dd0-4240-4a58-9511-4ff06d4c96cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{d5d950fe-67c3-47d8-aa8a-81c567b86a1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MissionStart\MissionListctl">
+      <UniqueIdentifier>{24a34c91-8cb8-4496-a5a7-506a1eb7dbd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Process">
+      <UniqueIdentifier>{ba95af44-bbc1-4a94-82fe-75ba59a19016}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionManager.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionManagerDlg.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneralUtil.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomStatic.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionVersionItem.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionItem.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="EventItem.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="AllVersionListDlg.h">
+      <Filter>VersionSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionManage.h">
+      <Filter>MissionManage</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionAdd.h">
+      <Filter>MissionManage</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomEdit.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionStart.h">
+      <Filter>MissionStart</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionListCtrl.h">
+      <Filter>MissionStart\MissionListctl</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionListItem.h">
+      <Filter>MissionStart\MissionListctl</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomScroll.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EventSetting.h">
+      <Filter>MissionStart\MissionListctl</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomProcess.h">
+      <Filter>Process</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MissionManager.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionManagerDlg.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomStatic.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionVersionItem.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionItem.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="EventItem.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="AllVersionListDlg.cpp">
+      <Filter>VersionSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionManage.cpp">
+      <Filter>MissionManage</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionAdd.cpp">
+      <Filter>MissionManage</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomEdit.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionStart.cpp">
+      <Filter>MissionStart</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionListCtrl.cpp">
+      <Filter>MissionStart\MissionListctl</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionListItem.cpp">
+      <Filter>MissionStart\MissionListctl</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomScroll.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EventSetting.cpp">
+      <Filter>MissionStart\MissionListctl</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MissionManager.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\MissionManager.rc2">
+      <Filter>리소스 파일</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\MissionManager.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
