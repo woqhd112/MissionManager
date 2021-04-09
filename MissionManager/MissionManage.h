@@ -34,6 +34,11 @@ private:
 	CListCtrl m_list_random_output;
 	CComboBox m_combo_event_type;
 
+	CStatic m_stt_group_mission_grade;
+	CButton m_radio_level_easy;
+	CButton m_radio_level_middle;
+	CButton m_radio_level_hard;
+
 	MissionVersionItem* cMissionVersionItem;
 	MissionList m_cMissionList;
 	MissionList m_cNewMissionList;
@@ -74,4 +79,7 @@ public:
 	afx_msg void OnBnClickedButtonManageClose();
 	afx_msg void OnBnClickedButtonManageMissionAdd();
 	afx_msg void OnNMClickListRandomOutputList(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnClickedRadioManageLevelEasy();
+	afx_msg void OnBnClickedRadioManageLevelNormal();
+	afx_msg void OnBnClickedRadioManageLevelHard();
 };

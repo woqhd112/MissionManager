@@ -51,6 +51,10 @@ void MissionManage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_RANDOM_VALUE_INPUT, m_stt_random_value_input);
 	DDX_Control(pDX, IDC_STATIC_MANAGE_VERSION_NAME, m_stt_version_name);
 	DDX_Control(pDX, IDC_EDIT_MANAGE_VERSION_NAME, m_edit_version_name);
+	DDX_Control(pDX, IDC_STATIC_GROUP_MANAGE_MISSION_GRADE, m_stt_group_mission_grade);
+	DDX_Control(pDX, IDC_RADIO_MANAGE_LEVEL_EASY, m_radio_level_easy);
+	DDX_Control(pDX, IDC_RADIO_MANAGE_LEVEL_NORMAL, m_radio_level_middle);
+	DDX_Control(pDX, IDC_RADIO_MANAGE_LEVEL_HARD, m_radio_level_hard);
 }
 
 
@@ -64,6 +68,9 @@ BEGIN_MESSAGE_MAP(MissionManage, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_MANAGE_CLOSE, &MissionManage::OnBnClickedButtonManageClose)
 	ON_BN_CLICKED(IDC_BUTTON_MANAGE_MISSION_ADD, &MissionManage::OnBnClickedButtonManageMissionAdd)
 	ON_NOTIFY(NM_CLICK, IDC_LIST_RANDOM_OUTPUT_LIST, &MissionManage::OnNMClickListRandomOutputList)
+	ON_BN_CLICKED(IDC_RADIO_MANAGE_LEVEL_EASY, &MissionManage::OnBnClickedRadioManageLevelEasy)
+	ON_BN_CLICKED(IDC_RADIO_MANAGE_LEVEL_NORMAL, &MissionManage::OnBnClickedRadioManageLevelNormal)
+	ON_BN_CLICKED(IDC_RADIO_MANAGE_LEVEL_HARD, &MissionManage::OnBnClickedRadioManageLevelHard)
 END_MESSAGE_MAP()
 
 
@@ -91,6 +98,11 @@ BOOL MissionManage::OnInitDialog()
 	m_stt_random_value_input.MoveWindow(200, 580, 70, 20);
 	m_edit_random_output.MoveWindow(270, 575, 140, 25);
 
+	m_stt_group_mission_grade.MoveWindow(30, 470, 150, 100);
+	m_radio_level_easy.MoveWindow(50, 490, 100, 25);
+	m_radio_level_middle.MoveWindow(50, 515, 100, 25);
+	m_radio_level_hard.MoveWindow(50, 540, 100, 25);
+
 	m_btn_mission_add.MoveWindow(40, 620, 100, 30);
 	m_btn_mission_save.MoveWindow(170, 620, 100, 30);
 	m_btn_close.MoveWindow(300, 620, 100, 30);
@@ -113,14 +125,19 @@ BOOL MissionManage::OnInitDialog()
 	m_edit_random_output.EnableWindow(FALSE);
 	m_edit_mission_name.EnableWindow(FALSE);
 	m_combo_event_type.EnableWindow(FALSE);
+	m_radio_level_easy.EnableWindow(FALSE);
+	m_radio_level_middle.EnableWindow(FALSE);
+	m_radio_level_hard.EnableWindow(FALSE);
 
 	m_combo_event_type.InsertString(0, _T("없음"));
-	m_combo_event_type.InsertString(1, _T("랜덤 뽑기"));
-	m_combo_event_type.InsertString(2, _T("텍스트 입력"));
-	m_combo_event_type.InsertString(3, _T("실드"));
-	m_combo_event_type.InsertString(4, _T("직접말하기"));
+	m_combo_event_type.InsertString(1, _T("랜덤 뽑기 사전 설정"));
+	m_combo_event_type.InsertString(2, _T("랜덤 뽑기 사후 설정"));
+	m_combo_event_type.InsertString(3, _T("텍스트 입력"));
+	m_combo_event_type.InsertString(4, _T("실드"));
+	m_combo_event_type.InsertString(5, _T("직접말하기"));
 
 	m_combo_event_type.SetCurSel(0);
+	m_radio_level_easy.SetCheck(TRUE);
 	m_edit_version_name.SetWindowTextW(cMissionVersionItem->GetVersionName());
 
 	HWND h_wnd = ::FindWindowEx(m_combo_event_type.m_hWnd, NULL, _T("Edit"), NULL);
@@ -156,6 +173,7 @@ void MissionManage::LoadMissionList()
 		newEvent->SetEventType(m_cMissionList.at(i)->GetEvent()->GetEventType());
 		newEvent->SetRandomTextList(m_cMissionList.at(i)->GetEvent()->GetRandomTextList());
 
+		newMission->SetMissionGrade(m_cMissionList.at(i)->GetMissionGrade());
 		newMission->SetMissionSequence(m_cMissionList.at(i)->GetMissionSequence());
 		newMission->SetMissionName(m_cMissionList.at(i)->GetMissionName());
 		newMission->SetEvent(newEvent);
@@ -165,11 +183,11 @@ void MissionManage::LoadMissionList()
 
 	for (int i = 0; i < (int)m_cNewMissionList.size(); i++)
 	{
-		MissionItem* currentMission = m_cNewMissionList.at(i);
+		MissionItem* currentMissions = m_cNewMissionList.at(i);
 		CString strSeq;
-		strSeq.Format(_T("%d"), currentMission->GetMissionSequence());
+		strSeq.Format(_T("%d"), currentMissions->GetMissionSequence());
 		m_list_mission_manage.InsertItem(i, strSeq);
-		m_list_mission_manage.SetItemText(i, 1, currentMission->GetMissionName());
+		m_list_mission_manage.SetItemText(i, 1, currentMissions->GetMissionName());
 	}
 }
 
@@ -282,11 +300,16 @@ void MissionManage::OnNMClickListMissionManage(NMHDR *pNMHDR, LRESULT *pResult)
 		m_edit_random_output.EnableWindow(FALSE); 
 		m_edit_mission_name.EnableWindow(TRUE);
 		m_combo_event_type.EnableWindow(TRUE);
+		m_radio_level_easy.EnableWindow(TRUE);
+		m_radio_level_middle.EnableWindow(TRUE);
+		m_radio_level_hard.EnableWindow(TRUE);
 
 		m_list_random_output.DeleteAllItems();
 		m_edit_random_output.SetWindowTextW(_T(""));
 
 		MissionItem* selectMission = m_cNewMissionList.at(row);
+
+
 		currentMission = selectMission;
 		EventItem* selectEvent = selectMission->GetEvent();
 		// 아래 인풋그룹에 추가
@@ -294,7 +317,26 @@ void MissionManage::OnNMClickListMissionManage(NMHDR *pNMHDR, LRESULT *pResult)
 		EventItem::EventType eventType = selectEvent->GetEventType();
 		m_combo_event_type.SetCurSel((int)eventType);
 
-		if (eventType == EventItem::EVENT_RANDOM)
+		if (selectMission->GetMissionGrade() == 1)
+		{
+			m_radio_level_easy.SetCheck(TRUE);
+			m_radio_level_middle.SetCheck(FALSE);
+			m_radio_level_hard.SetCheck(FALSE);
+		}
+		else if (selectMission->GetMissionGrade() == 2)
+		{
+			m_radio_level_easy.SetCheck(FALSE);
+			m_radio_level_middle.SetCheck(TRUE);
+			m_radio_level_hard.SetCheck(FALSE);
+		}
+		else if (selectMission->GetMissionGrade() == 3)
+		{
+			m_radio_level_easy.SetCheck(FALSE);
+			m_radio_level_middle.SetCheck(FALSE);
+			m_radio_level_hard.SetCheck(TRUE);
+		}
+
+		if (eventType == EventItem::EVENT_RANDOM_PRESET)
 		{
 			m_list_random_output.EnableWindow(TRUE);
 			m_edit_random_output.EnableWindow(TRUE);
@@ -314,9 +356,13 @@ void MissionManage::OnNMClickListMissionManage(NMHDR *pNMHDR, LRESULT *pResult)
 		m_edit_random_output.EnableWindow(FALSE);
 		m_edit_mission_name.EnableWindow(FALSE);
 		m_combo_event_type.EnableWindow(FALSE);
+		m_radio_level_easy.EnableWindow(FALSE);
+		m_radio_level_middle.EnableWindow(FALSE);
+		m_radio_level_hard.EnableWindow(FALSE);
 		m_list_mission_manage.SetSelectionMark(-1);
 		m_edit_mission_name.SetWindowTextW(_T(""));
 		m_combo_event_type.SetCurSel(0);
+		m_radio_level_easy.SetCheck(TRUE);
 		m_list_random_output.DeleteAllItems();
 	}
 
@@ -425,8 +471,13 @@ void MissionManage::OnBnClickedButtonManageSave()
 		EventItem* createEvent = new EventItem;
 
 		createEvent->SetEventType(assignEvent->GetEventType());
+		if (assignEvent->GetEventType() != 1)
+		{
+			assignEvent->SetRandomTextList({});
+		}
 		createEvent->SetRandomTextList(assignEvent->GetRandomTextList());
 		createMission->SetEvent(createEvent);
+		createMission->SetMissionGrade(assignMission->GetMissionGrade());
 		createMission->SetMissionName(assignMission->GetMissionName());
 		createMission->SetMissionSequence(assignMission->GetMissionSequence());
 		m_cMissionList.push_back(createMission);
@@ -483,4 +534,25 @@ void MissionManage::OnNMClickListRandomOutputList(NMHDR *pNMHDR, LRESULT *pResul
 	}
 
 	*pResult = 0;
+}
+
+
+void MissionManage::OnBnClickedRadioManageLevelEasy()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	currentMission->SetMissionGrade(1);
+}
+
+
+void MissionManage::OnBnClickedRadioManageLevelNormal()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	currentMission->SetMissionGrade(2);
+}
+
+
+void MissionManage::OnBnClickedRadioManageLevelHard()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	currentMission->SetMissionGrade(3);
 }

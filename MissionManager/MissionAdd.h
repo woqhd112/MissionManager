@@ -38,6 +38,10 @@ private:
 	CustomEdit m_edit_random_value_input;
 	CComboBox m_combo_event_type;
 	CListCtrl m_list_random_input_list;
+	CustomStatic m_stt_mission_grade;
+	CButton m_radio_level_easy;
+	CButton m_radio_level_normal;
+	CButton m_radio_level_hard;
 
 	RandomTextList inputRandomTextList;
 	CWnd* pParent;

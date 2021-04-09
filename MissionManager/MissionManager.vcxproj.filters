@@ -97,6 +97,12 @@
     <ClInclude Include="RandomProcess.h">
       <Filter>Process</Filter>
     </ClInclude>
+    <ClInclude Include="MissionCountSetting.h">
+      <Filter>MissionStart</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionTimer.h">
+      <Filter>MissionStart</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MissionManager.cpp">
@@ -150,6 +156,12 @@
     <ClCompile Include="EventSetting.cpp">
       <Filter>MissionStart\MissionListctl</Filter>
     </ClCompile>
+    <ClCompile Include="MissionCountSetting.cpp">
+      <Filter>MissionStart</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionTimer.cpp">
+      <Filter>MissionStart</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MissionManager.rc">
@@ -165,5 +177,10 @@
     <Image Include="res\MissionManager.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\Alarm.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
   </ItemGroup>
 </Project>

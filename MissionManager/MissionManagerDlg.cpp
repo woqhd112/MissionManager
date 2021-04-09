@@ -198,7 +198,7 @@ void CMissionManagerDlg::LoadVersionList()
 		MissionItem* newMission = new MissionItem;
 
 		EventItem* newEvent = new EventItem;
-		newEvent->SetEventType(EventItem::EVENT_RANDOM);
+		newEvent->SetEventType(EventItem::EVENT_RANDOM_PRESET);
 
 		RandomTextList newRandomTextList;
 		newRandomTextList.push_back(_T("1"));
@@ -211,6 +211,7 @@ void CMissionManagerDlg::LoadVersionList()
 
 		CString strVersionName;
 		strVersionName.Format(_T("테스트%d"), i + 1);
+		newMission->SetMissionGrade(1);
 		newMission->SetMissionName(strVersionName);
 		newMission->SetMissionSequence(i + 1);
 		newMission->SetEvent(newEvent);
@@ -232,9 +233,11 @@ void CMissionManagerDlg::LoadVersionList()
 
 		EventItem* newEvent = new EventItem;
 		newEvent->SetEventType(EventItem::EVENT_NONE);
+		newEvent->SetUsingEvent(false);
 
 		CString strVersionName;
 		strVersionName.Format(_T("실험%d"), i + 1);
+		newMission->SetMissionGrade(1);
 		newMission->SetMissionName(strVersionName);
 		newMission->SetMissionSequence(i + 1);
 		newMission->SetEvent(newEvent);

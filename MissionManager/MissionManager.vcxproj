@@ -197,6 +197,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GeneralUtil.h" />
     <ClInclude Include="MissionAdd.h" />
+    <ClInclude Include="MissionCountSetting.h" />
     <ClInclude Include="MissionItem.h" />
     <ClInclude Include="MissionListCtrl.h" />
     <ClInclude Include="MissionListItem.h" />
@@ -204,6 +205,7 @@
     <ClInclude Include="MissionManager.h" />
     <ClInclude Include="MissionManagerDlg.h" />
     <ClInclude Include="MissionStart.h" />
+    <ClInclude Include="MissionTimer.h" />
     <ClInclude Include="MissionVersionItem.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RandomProcess.h" />
@@ -219,6 +221,7 @@
     <ClCompile Include="EventItem.cpp" />
     <ClCompile Include="EventSetting.cpp" />
     <ClCompile Include="MissionAdd.cpp" />
+    <ClCompile Include="MissionCountSetting.cpp" />
     <ClCompile Include="MissionItem.cpp" />
     <ClCompile Include="MissionListCtrl.cpp" />
     <ClCompile Include="MissionListItem.cpp" />
@@ -226,6 +229,7 @@
     <ClCompile Include="MissionManager.cpp" />
     <ClCompile Include="MissionManagerDlg.cpp" />
     <ClCompile Include="MissionStart.cpp" />
+    <ClCompile Include="MissionTimer.cpp" />
     <ClCompile Include="MissionVersionItem.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -242,6 +246,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\MissionManager.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\Alarm.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

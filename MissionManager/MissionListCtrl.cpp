@@ -260,6 +260,8 @@ void MissionListCtrl::InsertItem(MissionItem* inputMission, CString strMissionUs
 	newItem->SetMissionName(inputMission->GetMissionName());
 	newItem->SetEventType(inputMission->GetEvent()->GetEventType());
 	newItem->SetRandomTextList(inputMission->GetEvent()->GetRandomTextList());
+	newItem->SetUseEvent(inputMission->GetEvent()->IsUsing());
+	newItem->SetMissionSequence(inputMission->GetMissionSequence());
 
 	if (newItem->GetEventType() == 0)
 		newItem->SetNoEvent(FALSE);
@@ -345,12 +347,18 @@ BOOL MissionListCtrl::OnCommand(WPARAM wParam, LPARAM lParam)
 			MissionListItem* compare = activeMissionList.at(i);
 			if (compare->IsSameEventButton(eventButton))
 			{
+				if (compare->IsUsing())
+				{
+					AfxMessageBox(_T("이벤트를 사용하셨습니다."), MB_OK | MB_ICONSTOP);
+					break;
+				}
+
 				if (compare->GetEventType() == 0)
 				{
 					AfxMessageBox(_T("등록된 이벤트가 없습니다."), MB_OK | MB_ICONSTOP);
 					break;
 				}
-				else if (compare->GetEventType() == 3)
+				else if (compare->GetEventType() == 4)
 				{
 					break;
 				}
@@ -362,15 +370,17 @@ BOOL MissionListCtrl::OnCommand(WPARAM wParam, LPARAM lParam)
 				if (strOutput.IsEmpty())
 					break;
 
-				if (compare->GetEventType() == 4)
+				if (compare->GetEventType() == 5)
 				{
 					int nMissionSeq = _ttoi(strOutput);
 					MissionItem* selectMission = curentMissionList.at(nMissionSeq);
 					compare->ChangeMission(selectMission->GetMissionName(), selectMission->GetEvent()->GetEventType(), selectMission->GetEvent()->GetRandomTextList());
+					compare->SetMissionSequence(selectMission->GetMissionSequence());
 					break;
 				}
 
 				compare->SetEventStatic(strOutput);
+				compare->SetUseEvent(true);
 
 				break;
 			}
@@ -390,4 +400,14 @@ BOOL MissionListCtrl::OnCommand(WPARAM wParam, LPARAM lParam)
 	}
 
 	return CDialogEx::OnCommand(wParam, lParam);
+}
+
+int MissionListCtrl::GetItemCount() const
+{
+	return (int)activeMissionList.size();
+}
+
+MissionListItem* MissionListCtrl::GetItem(int nRow)
+{
+	return activeMissionList.at(nRow);
 }

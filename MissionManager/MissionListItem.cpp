@@ -15,6 +15,8 @@ MissionListItem::MissionListItem(CWnd* pParent)
 	m_strMissionName = _T("");
 	nIndex = 0;
 	nPos = 0;
+	m_bUse = false;
+	m_nMissionSequence = 0;
 }
 
 MissionListItem::~MissionListItem()
@@ -114,11 +116,11 @@ void MissionListItem::Create(int nListSize)
 	wrapButton2->MoveWindow(0, 30, nWrapWidth, 30);
 	nDivideWidth = (nWrapWidth / 10);
 	missionStatic->MoveWindow(5, 0, nDivideWidth * 5, 30);
-	winnerNameStatic->MoveWindow(nDivideWidth * 4 + 15, 0, nDivideWidth * 3, 30);
+	winnerNameStatic->MoveWindow(nDivideWidth * 5 + 15, 0, nDivideWidth * 3, 30);
 	resultStatic->MoveWindow(5, 30, nDivideWidth * 2, 30);
 	eventStatic->MoveWindow(5 + (nDivideWidth * 2), 30, nDivideWidth * 7.5, 30);
-	eventButton->MoveWindow((nDivideWidth * 4) + 15 + (nDivideWidth * 3) + 10, 0, nDivideWidth * 1.5, 30);
-	closeButton->MoveWindow((nDivideWidth * 4) + 15 + (nDivideWidth * 3) + 10 + (nDivideWidth * 1.5) + 5, 0, nDivideWidth * 0.5, 30);
+	eventButton->MoveWindow((nDivideWidth * 5) + 15 + (nDivideWidth * 3) + 10, 0, nDivideWidth * 1.5, 30);
+	closeButton->MoveWindow((nDivideWidth * 5) + 15 + (nDivideWidth * 3) + 10 + (nDivideWidth * 1.5) + 5, 0, nDivideWidth * 0.5, 30);
 
 	wrapButton1->ModifyStyle(0, WS_CLIPSIBLINGS | WS_CLIPCHILDREN, 0);
 	wrapButton2->ModifyStyle(0, WS_CLIPSIBLINGS | WS_CLIPCHILDREN, 0);
@@ -157,7 +159,7 @@ void MissionListItem::MoveWindow(int y)
 	wrapButton1->SetWindowPos(NULL, 0, y, 0, 0, SWP_NOSIZE);
 	wrapButton2->SetWindowPos(NULL, 0, y + 30, 0, 0, SWP_NOSIZE);
 	missionStatic->SetWindowPos(NULL, 5, y, 0, 0, SWP_NOSIZE);
-	winnerNameStatic->SetWindowPos(NULL, nDivideWidth * 4 + 15, y, 0, 0, SWP_NOSIZE);
+	winnerNameStatic->SetWindowPos(NULL, nDivideWidth * 5 + 15, y, 0, 0, SWP_NOSIZE);
 	resultStatic->SetWindowPos(NULL, 5, y + 30, 0, 0, SWP_NOSIZE);
 	eventStatic->SetWindowPos(NULL, 5 + (nDivideWidth * 2), y + 30, 0, 0, SWP_NOSIZE);
 	eventButton->SetWindowPos(NULL, (nDivideWidth * 4) + 15 + (nDivideWidth * 3) + 10, y, 0, 0, SWP_NOSIZE);
@@ -212,6 +214,21 @@ void MissionListItem::SetNoEvent(BOOL bChange)
 	eventButton->EnableWindow(bChange);
 }
 
+void MissionListItem::SetUseEvent(bool bUse)
+{
+	this->m_bUse = bUse;
+}
+
+void MissionListItem::SetMissionSequence(int nSeq)
+{
+	this->m_nMissionSequence = nSeq;
+}
+
+bool MissionListItem::IsUsing() const
+{
+	return m_bUse;
+}
+
 int MissionListItem::GetItemIndex() const
 {
 	return nIndex;
@@ -225,6 +242,11 @@ int MissionListItem::GetPos() const
 int MissionListItem::GetEventType() const
 {
 	return m_nEventType;
+}
+
+int MissionListItem::GetMissionSequence() const
+{
+	return m_nMissionSequence;
 }
 
 bool MissionListItem::IsSameEventButton(CustomButton* compareButton)

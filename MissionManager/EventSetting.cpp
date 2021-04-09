@@ -69,7 +69,7 @@ BOOL EventSetting::OnInitDialog()
 
 			break;
 
-			// 랜덤뽑기 이벤트가 선택된 미션
+			// 랜덤뽑기 사전설정 이벤트가 선택된 미션
 		case 1:
 
 			this->SetWindowTextW(_T("랜덤 뽑기"));
@@ -85,12 +85,36 @@ BOOL EventSetting::OnInitDialog()
 
 			nDecreaseListCount = (int)inputMission->GetRandomTextList().size();
 
-			EnableRandomEvent();
+			EnablePreSetRandomEvent();
+
+			break;
+
+			// 랜덤뽑기 사후설정 이벤트가 선택된 미션
+		case 2:
+
+			this->SetWindowTextW(_T("랜덤 뽑기"));
+			this->SetWindowPos(NULL, 0, 0, 400, 400, SWP_NOMOVE);
+			m_stt_group_event.SetWindowTextW(_T("랜덤 뽑기"));
+			m_stt_group_event.MoveWindow(10, 10, 360, 270);
+			m_stt_event_text.MoveWindow(20, 30, 70, 20);
+			m_edit_event_text.MoveWindow(100, 25, 260, 25);
+			m_list_event_random.MoveWindow(20, 60, 340, 160);
+			m_btn_exact.MoveWindow(20, 230, 340, 30);
+			m_btn_save.MoveWindow(250, 290, 120, 30);
+
+			m_stt_event_text.SetWindowTextW(_T("랜덤 값 입력"));
+
+			m_btn_exact.Initialize(RGB(220, 220, 220), CMFCButton::FlatStyle::BUTTONSTYLE_NOBORDERS, _T("Tahoma"), 15, FW_BOLD);
+			m_btn_save.Initialize(RGB(220, 220, 220), CMFCButton::FlatStyle::BUTTONSTYLE_NOBORDERS, _T("Tahoma"), 15, FW_BOLD);
+
+			nDecreaseListCount = 0;
+
+			EnablePostSetRandomEvent();
 
 			break;
 
 			// 텍스트입력 이벤트가 선택된 미션
-		case 2:
+		case 3:
 
 			this->SetWindowTextW(_T("텍스트 입력"));
 			this->SetWindowPos(NULL, 0, 0, 350, 200, SWP_NOMOVE);
@@ -107,12 +131,12 @@ BOOL EventSetting::OnInitDialog()
 			break;
 
 			// 실드 이벤트가 선택된 미션  / 사실 이걸 타진않음..
-		case 3:
+		case 4:
 
 			break;
 
 			// 직접말하기 이벤트가 선택된 미션
-		case 4:
+		case 5:
 
 			this->SetWindowTextW(_T("직접말하기"));
 			this->SetWindowPos(NULL, 0, 0, 400, 610, SWP_NOMOVE);
@@ -166,7 +190,27 @@ BOOL EventSetting::PreTranslateMessage(MSG* pMsg)
 	if (pMsg->message == WM_KEYDOWN)
 	{
 		if (pMsg->wParam == VK_RETURN) // ENTER키 눌릴 시
+		{
+			if (pMsg->hwnd == m_edit_event_text.m_hWnd)
+			{
+				int nEventType = inputMission->GetEventType();
+				if (nEventType == 2)
+				{
+					int nListCount = m_list_event_random.GetCount();
+					CString strInputText;
+					m_edit_event_text.GetWindowTextW(strInputText);
+
+					RandomTextList randomTextList = inputMission->GetRandomTextList();
+					randomTextList.push_back(strInputText);
+					inputMission->SetRandomTextList(randomTextList);
+
+					m_edit_event_text.SetWindowTextW(_T(""));
+					nDecreaseListCount++;
+				}
+			}
+
 			return TRUE;
+		}
 		else if (pMsg->wParam == VK_ESCAPE) // ESC키 눌릴 시
 			return TRUE;
 	}
@@ -201,10 +245,18 @@ void EventSetting::DefaultEnableCtrlItem()
 	m_edit_event_text.ShowWindow(SW_HIDE);
 }
 
-void EventSetting::EnableRandomEvent()
+void EventSetting::EnablePreSetRandomEvent()
 {
 	m_btn_exact.ShowWindow(SW_SHOW);
 	m_list_event_random.ShowWindow(SW_SHOW);
+}
+
+void EventSetting::EnablePostSetRandomEvent()
+{
+	m_btn_exact.ShowWindow(SW_SHOW);
+	m_list_event_random.ShowWindow(SW_SHOW);
+	m_stt_event_text.ShowWindow(SW_SHOW);
+	m_edit_event_text.ShowWindow(SW_SHOW);
 }
 
 void EventSetting::EnableInputTextEvent()
@@ -224,30 +276,30 @@ void EventSetting::OnBnClickedButtonExact()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
-	if (inputMission->GetEventType() != 1)
-		return;
-
-	if (nDecreaseListCount == 0)
+	if (inputMission->GetEventType() == 1 || inputMission->GetEventType() == 2)
 	{
-		AfxMessageBox(_T("모든 이벤트를 사용하셨습니다."), MB_OK | MB_ICONSTOP);
-		return;
-	}
+		if (nDecreaseListCount == 0)
+		{
+			AfxMessageBox(_T("모든 이벤트를 사용하셨습니다."), MB_OK | MB_ICONSTOP);
+			return;
+		}
 	
 
-	// 랜덤 함수 
-	RandomProcess random;
-	RandomTextList randomTextList;
-	randomTextList = inputMission->GetRandomTextList();
-	int nRandomValue = random.Random(0, randomTextList.size() - 1);
+		// 랜덤 함수 
+		RandomProcess random;
+		RandomTextList randomTextList;
+		randomTextList = inputMission->GetRandomTextList();
+		int nRandomValue = random.Random(0, (int)randomTextList.size() - 1);
 
-	CString strRandomText = randomTextList.at(nRandomValue);
-	randomTextList.erase(randomTextList.begin() + nRandomValue);
-	inputMission->SetRandomTextList(randomTextList);
+		CString strRandomText = randomTextList.at(nRandomValue);
+		randomTextList.erase(randomTextList.begin() + nRandomValue);
+		inputMission->SetRandomTextList(randomTextList);
 
-	int nListCount = m_list_event_random.GetCount();
-	m_list_event_random.InsertString(nListCount, strRandomText);
+		int nListCount = m_list_event_random.GetCount();
+		m_list_event_random.InsertString(nListCount, strRandomText);
 
-	nDecreaseListCount--;
+		nDecreaseListCount--;
+	}
 }
 
 
@@ -258,7 +310,7 @@ void EventSetting::OnBnClickedButtonEventsetSave()
 	{
 		int nEventType = inputMission->GetEventType();
 
-		if (nEventType == 1)
+		if (nEventType == 1 || nEventType == 2)
 		{
 			for (int i = 0; i < m_list_event_random.GetCount(); i++)
 			{
@@ -270,11 +322,11 @@ void EventSetting::OnBnClickedButtonEventsetSave()
 					outputText->AppendFormat(_T("%s, "), strOutputText);
 			}
 		}
-		else if (nEventType == 2)
+		else if (nEventType == 3)
 		{
 			m_edit_event_text.GetWindowTextW(*outputText);
 		}
-		else if (nEventType == 4)
+		else if (nEventType == 5)
 		{
 			outputText->Format(_T("%d"), nSelectMission);
 		}
@@ -286,7 +338,7 @@ void EventSetting::OnBnClickedButtonEventsetSave()
 void EventSetting::OnLbnDblclkListEventRandomList()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	if (inputMission->GetEventType() != 4)
+	if (inputMission->GetEventType() != 5)
 		return;
 
 	int nSelectIndex = m_list_event_random.GetCurSel();

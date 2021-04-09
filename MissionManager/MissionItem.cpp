@@ -3,6 +3,7 @@
 
 MissionItem::MissionItem()
 {
+	m_nMissionGrade = 0;
 	m_nMissionSequence = 0;
 	m_strMissionName = _T("");
 }
@@ -26,6 +27,16 @@ void MissionItem::SetMissionName(CString strMissionName)
 void MissionItem::SetEvent(EventItem* hEvent)
 {
 	m_hEventItem = hEvent;
+}
+
+void MissionItem::SetMissionGrade(int nGrade)
+{
+	this->m_nMissionGrade = nGrade;
+}
+
+int MissionItem::GetMissionGrade() const
+{
+	return m_nMissionGrade;
 }
 
 int MissionItem::GetMissionSequence() const

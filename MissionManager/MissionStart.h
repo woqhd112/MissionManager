@@ -39,7 +39,26 @@ private:
 	CustomStatic m_stt_mission_performer;
 	CustomStatic m_stt_having_mission;
 	CustomStatic m_stt_having_sheild;
+	CustomStatic m_stt_mission_view_static;
 	CustomEdit m_edit_mission_performer;
+	CStatic m_stt_mission_view_picture;
+
+	CStatic m_stt_group_count;
+	CustomStatic m_stt_out_count;
+	CustomStatic m_stt_sheild_count;
+	CustomStatic m_stt_out_count_view;
+	CustomStatic m_stt_sheild_count_view;
+	CustomButton m_btn_count_setting;
+	CustomButton m_btn_out_count_up;
+	CustomButton m_btn_out_count_down;
+	CustomButton m_btn_sheild_count_up;
+	CustomButton m_btn_sheild_count_down;
+	CustomButton m_btn_sheild_up;
+
+	CBrush m_backBrush;
+	CRect viewRect;
+
+	COLORREF currentColor;
 
 	int nMissionCount;
 
@@ -55,4 +74,12 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnBnClickedButtonStartExtract();
 	afx_msg void OnBnClickedButtonSheildExtract();
+	afx_msg void OnPaint();
+	afx_msg void OnBnClickedButtonStartCountSet();
+	afx_msg void OnBnClickedButtonStartOutCountUp();
+	afx_msg void OnBnClickedButtonStartOutCountDown();
+	afx_msg void OnBnClickedButtonStartSheildCountUp();
+	afx_msg void OnBnClickedButtonStartSheildCountDown();
+	afx_msg void OnBnClickedButtonStartSheildUp();
+	afx_msg void OnBnClickedButtonTimer();
 };

@@ -25,12 +25,15 @@ public:
 	void SetEventStatic(CString strStatic);
 	void ChangeMission(CString strMissionName, int nEventType, RandomTextList vRandomTextList);
 	void SetNoEvent(BOOL bChange);
+	void SetUseEvent(bool bUse);
+	void SetMissionSequence(int nSeq);
 
-
+	bool IsUsing() const;
 	int GetEventType() const;
 	RandomTextList GetRandomTextList() const;
 	int GetItemIndex() const;
 	int GetPos() const;
+	int GetMissionSequence() const;
 
 
 	bool IsSameEventButton(CustomButton* compareButton);
@@ -51,8 +54,10 @@ private:
 	RandomTextList m_vRandomTextList;
 	CString m_strMissionUserName;
 	CString m_strMissionName;
+	bool m_bUse;
 	int m_nEventType;
 	int nIndex;
+	int m_nMissionSequence;
 
 	int nPos;
 

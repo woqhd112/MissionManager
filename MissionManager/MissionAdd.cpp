@@ -38,6 +38,10 @@ void MissionAdd::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT_ADD_RANDOM_VALUE_INPUT, m_edit_random_value_input);
 	DDX_Control(pDX, IDC_BUTTON_ADD_SAVE, m_btn_save);
 	DDX_Control(pDX, IDC_BUTTON_ADD_CLOSE, m_btn_close);
+	DDX_Control(pDX, IDC_STATIC_ADD_MISSION_GRADE, m_stt_mission_grade);
+	DDX_Control(pDX, IDC_RADIO_ADD_MISSION_LEVEL_EASY, m_radio_level_easy);
+	DDX_Control(pDX, IDC_RADIO_ADD_MISSION_LEVEL_NORMAL, m_radio_level_normal);
+	DDX_Control(pDX, IDC_RADIO_ADD_MISSION_LEVEL_HARD, m_radio_level_hard);
 }
 
 
@@ -60,18 +64,24 @@ BOOL MissionAdd::OnInitDialog()
 
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
 
-	this->SetWindowPos(NULL, 0, 0, 400, 420, SWP_NOMOVE);
+	this->SetWindowPos(NULL, 0, 0, 400, 460, SWP_NOMOVE);
 
 	m_stt_mission_name.MoveWindow(20, 20, 50, 20);
 	m_edit_mission_name.MoveWindow(130, 15, 230, 25);
 	m_stt_event_type.MoveWindow(20, 50, 100, 20);
-	m_combo_event_type.MoveWindow(130, 50, 100, 20);
+	m_combo_event_type.MoveWindow(130, 50, 150, 20);
 	m_stt_random_input_list.MoveWindow(20, 80, 100, 20);
 	m_list_random_input_list.MoveWindow(130, 80, 230, 200);
 	m_stt_random_value_input.MoveWindow(20, 290, 100, 20);
 	m_edit_random_value_input.MoveWindow(130, 285, 230, 25);
-	m_btn_save.MoveWindow(150, 320, 100, 30);
-	m_btn_close.MoveWindow(260, 320, 100, 30);
+
+	m_stt_mission_grade.MoveWindow(20, 330, 50, 20);
+	m_radio_level_easy.MoveWindow(130, 325, 50, 25);
+	m_radio_level_normal.MoveWindow(190, 325, 50, 25);
+	m_radio_level_hard.MoveWindow(250, 325, 50, 25);
+
+	m_btn_save.MoveWindow(150, 360, 100, 30);
+	m_btn_close.MoveWindow(260, 360, 100, 30);
 
 	m_btn_save.Initialize(RGB(220, 220, 220), CMFCButton::FlatStyle::BUTTONSTYLE_NOBORDERS, _T("Tahoma"), 15, FW_BOLD);
 	m_btn_close.Initialize(RGB(220, 220, 220), CMFCButton::FlatStyle::BUTTONSTYLE_NOBORDERS, _T("Tahoma"), 15, FW_BOLD);
@@ -87,12 +97,14 @@ BOOL MissionAdd::OnInitDialog()
 	m_list_random_input_list.ModifyStyle(LVS_TYPEMASK, LVS_REPORT);
 
 	m_combo_event_type.InsertString(0, _T("없음"));
-	m_combo_event_type.InsertString(1, _T("랜덤 뽑기"));
-	m_combo_event_type.InsertString(2, _T("텍스트 입력"));
-	m_combo_event_type.InsertString(3, _T("실드"));
-	m_combo_event_type.InsertString(4, _T("직접말하기"));
+	m_combo_event_type.InsertString(1, _T("랜덤 뽑기 사전 설정"));
+	m_combo_event_type.InsertString(2, _T("랜덤 뽑기 사후 설정"));
+	m_combo_event_type.InsertString(3, _T("텍스트 입력"));
+	m_combo_event_type.InsertString(4, _T("실드"));
+	m_combo_event_type.InsertString(5, _T("직접말하기"));
 
 	m_combo_event_type.SetCurSel(0);
+	m_radio_level_easy.SetCheck(TRUE);
 
 	HWND h_wnd = ::FindWindowEx(m_combo_event_type.m_hWnd, NULL, _T("Edit"), NULL);
 	if (h_wnd != NULL)
@@ -209,11 +221,26 @@ void MissionAdd::OnBnClickedButtonAddSave()
 		return;
 	}
 
+	int nGrade = 0;
+	if (m_radio_level_easy.GetCheck())
+	{
+		nGrade = 1;
+	}
+	else if (m_radio_level_normal.GetCheck())
+	{
+		nGrade = 2;
+	}
+	else if (m_radio_level_hard.GetCheck())
+	{
+		nGrade = 3;
+	}
+
 	MissionItem* newMission = new MissionItem;
 	EventItem* newEventItem = new EventItem;
 
 	newMission->SetMissionName(strInputMissionName);
 	newMission->SetMissionSequence(nMissionListSize);
+	newMission->SetMissionGrade(nGrade);
 	newEventItem->SetEventType(nEventTypeIndex);
 	newEventItem->SetRandomTextList(inputRandomTextList);
 	newMission->SetEvent(newEventItem);
@@ -239,6 +266,9 @@ void MissionAdd::OnBnClickedButtonAddSave()
 	inputRandomTextList.clear();
 	m_list_random_input_list.EnableWindow(FALSE);
 	m_edit_random_value_input.EnableWindow(FALSE);
+	m_radio_level_easy.SetCheck(TRUE);
+	m_radio_level_normal.SetCheck(FALSE);
+	m_radio_level_hard.SetCheck(FALSE);
 }
 
 

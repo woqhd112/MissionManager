@@ -25,6 +25,8 @@ public:
 public:
 
 	void InsertItem(MissionItem* inputMission, CString strMissionUserName);
+	int GetItemCount() const;
+	MissionListItem* GetItem(int nRow);
 
 private:
 

@@ -42,7 +42,8 @@ private:
 	int nSelectMission;
 
 	void DefaultEnableCtrlItem();
-	void EnableRandomEvent();
+	void EnablePreSetRandomEvent();
+	void EnablePostSetRandomEvent();
 	void EnableInputTextEvent();
 	void EnableSpeakDirectlyEvent();
 
