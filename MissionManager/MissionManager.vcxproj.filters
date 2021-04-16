@@ -103,6 +103,24 @@
     <ClInclude Include="MissionTimer.h">
       <Filter>MissionStart</Filter>
     </ClInclude>
+    <ClInclude Include="CustomXml.h">
+      <Filter>Process</Filter>
+    </ClInclude>
+    <ClInclude Include="CMarkup\Markup.h">
+      <Filter>Process</Filter>
+    </ClInclude>
+    <ClInclude Include="CXml\XmlNode.h">
+      <Filter>Process</Filter>
+    </ClInclude>
+    <ClInclude Include="CXml\XmlNodes.h">
+      <Filter>Process</Filter>
+    </ClInclude>
+    <ClInclude Include="CXml\Xsl.h">
+      <Filter>Process</Filter>
+    </ClInclude>
+    <ClInclude Include="CXml\Xml.h">
+      <Filter>Process</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MissionManager.cpp">
@@ -161,6 +179,24 @@
     </ClCompile>
     <ClCompile Include="MissionTimer.cpp">
       <Filter>MissionStart</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomXml.cpp">
+      <Filter>Process</Filter>
+    </ClCompile>
+    <ClCompile Include="CMarkup\Markup.cpp">
+      <Filter>Process</Filter>
+    </ClCompile>
+    <ClCompile Include="CXml\XmlNodes.cpp">
+      <Filter>Process</Filter>
+    </ClCompile>
+    <ClCompile Include="CXml\Xsl.cpp">
+      <Filter>Process</Filter>
+    </ClCompile>
+    <ClCompile Include="CXml\Xml.cpp">
+      <Filter>Process</Filter>
+    </ClCompile>
+    <ClCompile Include="CXml\XmlNode.cpp">
+      <Filter>Process</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

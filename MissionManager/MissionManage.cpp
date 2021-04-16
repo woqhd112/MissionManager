@@ -12,9 +12,10 @@
 
 IMPLEMENT_DYNAMIC(MissionManage, CDialogEx)
 
-MissionManage::MissionManage(MissionVersionItem* cMissionVersionItem, CRect parentRect, CWnd* pParent /*=nullptr*/)
+MissionManage::MissionManage(VersionList cVersionList, MissionVersionItem* cMissionVersionItem, CRect parentRect, CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MISSIONMANAGE_DIALOG, pParent)
 {
+	this->cVersionList = cVersionList;
 	this->cMissionVersionItem = cMissionVersionItem;
 	m_cMissionList = cMissionVersionItem->GetMission();
 	this->parentRect = parentRect;
@@ -455,6 +456,77 @@ void MissionManage::OnBnClickedButtonManageSave()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	//m_cMissionList = m_cNewMissionList;
+
+
+	CString strChangeVersionName;
+	m_edit_version_name.GetWindowTextW(strChangeVersionName);
+
+	for (int i = 0; i < (int)cVersionList.size(); i++)
+	{
+		MissionVersionItem* version = cVersionList.at(i);
+		if (cMissionVersionItem != version)
+		{
+			if (version->GetVersionName() == strChangeVersionName)
+			{
+				AfxMessageBox(_T("중복된 버전명 입니다."), MB_OK | MB_ICONSTOP);
+				m_edit_version_name.SetFocus();
+				m_edit_version_name.ShowCaret();
+				return;
+			}
+		}
+	}
+
+	CMarkup markUp;
+	CString strFullPath = _T("");
+	CustomXml::CreateConfigFile(strFullPath);
+	strFullPath += _T("\\verd.xml");
+	if (CustomXml::LoadConfigXml(&markUp, strFullPath))
+	{
+		markUp.FindElem(_T("versionlist"));
+		markUp.IntoElem();
+		while (markUp.FindElem(_T("version")))
+		{
+			if (cMissionVersionItem->GetVersionName() == markUp.GetAttrib(_T("name")))
+			{
+				markUp.SetAttrib(_T("name"), strChangeVersionName);
+				markUp.IntoElem();
+				while (markUp.FindElem(_T("mission")))
+				{
+					markUp.RemoveElem();
+				}
+
+				for (int i = 0; i < (int)m_cNewMissionList.size(); i++)
+				{
+					MissionItem* changeMission = m_cNewMissionList.at(i);
+					EventItem* changeEvent = changeMission->GetEvent();
+					RandomTextList changeRTL = changeEvent->GetRandomTextList();
+					markUp.AddElem(_T("mission"));
+					markUp.AddAttrib(_T("seq"), changeMission->GetMissionSequence());
+					markUp.AddAttrib(_T("name"), changeMission->GetMissionName());
+					markUp.AddAttrib(_T("grade"), changeMission->GetMissionGrade());
+					markUp.IntoElem();
+					markUp.AddElem(_T("event"));
+					markUp.AddAttrib(_T("type"), changeEvent->GetEventType());
+					if (!changeRTL.empty())
+					{
+						markUp.IntoElem();
+						for (int j = 0; j < (int)changeRTL.size(); j++)
+						{
+							markUp.AddElem(_T("randomtl"));
+							markUp.AddAttrib(_T("value"), changeRTL.at(j));
+						}
+						markUp.OutOfElem();
+					}
+					markUp.OutOfElem();
+				}
+
+				markUp.OutOfElem();
+			}
+		}
+		markUp.OutOfElem();
+	}
+	CustomXml::SaveXml(&markUp, strFullPath);
+
 	for (int i = 0; i < (int)m_cMissionList.size(); i++)
 	{
 		MissionItem* deleteMission = m_cMissionList.at(i);
@@ -483,8 +555,6 @@ void MissionManage::OnBnClickedButtonManageSave()
 		m_cMissionList.push_back(createMission);
 	}
 
-	CString strChangeVersionName;
-	m_edit_version_name.GetWindowTextW(strChangeVersionName);
 
 	cMissionVersionItem->SetVersionName(strChangeVersionName);
 	cMissionVersionItem->SetMission(m_cMissionList);

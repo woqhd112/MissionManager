@@ -34,6 +34,11 @@ void MissionItem::SetMissionGrade(int nGrade)
 	this->m_nMissionGrade = nGrade;
 }
 
+void MissionItem::SetMissionPerformer(CString strMissionPerformer)
+{
+	this->m_strMissionPerformer = strMissionPerformer;
+}
+
 int MissionItem::GetMissionGrade() const
 {
 	return m_nMissionGrade;
@@ -52,4 +57,9 @@ CString MissionItem::GetMissionName() const
 EventItem* MissionItem::GetEvent() const
 {
 	return m_hEventItem;
+}
+
+CString MissionItem::GetMissionPerformer() const
+{
+	return m_strMissionPerformer;
 }

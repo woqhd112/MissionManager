@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<versionlist>
+	<version name="하트골드">
+		<mission seq="1" name="에투샤 지정 실드" grade="1">
+			<event type="4"/>
+		</mission>
+		<mission seq="2" name="에투샤 지정 실드" grade="1">
+			<event type="4"/>
+		</mission>
+		<mission seq="3" name="에투샤 지정 실드" grade="1">
+			<event type="4"/>
+		</mission>
+		<mission seq="4" name="랜덤 실드" grade="1">
+			<event type="4"/>
+		</mission>
+		<mission seq="5" name="랜덤 실드" grade="1">
+			<event type="4"/>
+		</mission>
+		<mission seq="6" name="랜덤 실드" grade="1">
+			<event type="4"/>
+		</mission>
+		<mission seq="7" name="랜덤 실드" grade="1">
+			<event type="4"/>
+		</mission>
+		<mission seq="8" name="쏜사람 지정 실드" grade="1">
+			<event type="4"/>
+		</mission>
+		<mission seq="9" name="쏜사람 지정 실드" grade="1">
+			<event type="4"/>
+		</mission>
+		<mission seq="10" name="쏜사람 지정 실드" grade="1">
+			<event type="4"/>
+		</mission>
+		<mission seq="11" name="[즉시] 상점에서 돈 다 쓰고 아이템 전부 다 팔기" grade="1">
+			<event type="1"/>
+		</mission>
+		<mission seq="12" name="123123" grade="1">
+			<event type="0"/>
+		</mission>
+		<mission seq="13" name="test" grade="3">
+			<event type="1">
+				<randomtl value="1"/>
+				<randomtl value="2"/>
+				<randomtl value="3"/>
+				<randomtl value="4"/>
+				<randomtl value="5"/>
+			</event>
+		</mission>
+	</version>
+	<version name="새 버전 1"/>
+</versionlist>

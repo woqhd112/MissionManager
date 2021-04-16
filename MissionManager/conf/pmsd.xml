@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<saving>
+	<option save="0"/>
+	<data>
+		<having name="mission" cnt="1">
+			<hm seq="1" name="test" grade="1" perform="asd">
+				<hme type="1" use="1">
+					<text value="1"/>
+					<text value="2"/>
+					<text value="3"/>
+					<using value="1,2,3"/>
+				</hme>
+			</hm>
+		</having>
+		<having name="shield" cnt="0">
+			<hm seq="2" name="test" grade="1" perform="34">
+				<hme type="4" use="0">
+				</hme>
+			</hm>
+		</having>
+		<last perform="asd" mission="asdasd"/>
+		<out pre="0" suf="0"/>
+		<shield pre="0" suf="0"/>
+	</data>
+</saving>

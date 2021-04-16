@@ -36,7 +36,7 @@ void CustomEdit::Initialize(int nFontSize, CString strFontName)
 		OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS,
 		strFontName);
 	this->SetFont(&thisFont);
-	this->SetLimitText(30);
+	this->SetLimitText(40);
 }
 
 void CustomEdit::OnLButtonDown(UINT nFlags, CPoint point)

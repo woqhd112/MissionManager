@@ -188,10 +188,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AllVersionListDlg.h" />
+    <ClInclude Include="CMarkup\Markup.h" />
     <ClInclude Include="CustomButton.h" />
     <ClInclude Include="CustomEdit.h" />
     <ClInclude Include="CustomScroll.h" />
     <ClInclude Include="CustomStatic.h" />
+    <ClInclude Include="CustomXml.h" />
+    <ClInclude Include="CXml\Xml.h" />
+    <ClInclude Include="CXml\XmlNode.h" />
+    <ClInclude Include="CXml\XmlNodes.h" />
+    <ClInclude Include="CXml\Xsl.h" />
     <ClInclude Include="EventItem.h" />
     <ClInclude Include="EventSetting.h" />
     <ClInclude Include="framework.h" />
@@ -214,10 +220,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AllVersionListDlg.cpp" />
+    <ClCompile Include="CMarkup\Markup.cpp" />
     <ClCompile Include="CustomButton.cpp" />
     <ClCompile Include="CustomEdit.cpp" />
     <ClCompile Include="CustomScroll.cpp" />
     <ClCompile Include="CustomStatic.cpp" />
+    <ClCompile Include="CustomXml.cpp" />
+    <ClCompile Include="CXml\Xml.cpp" />
+    <ClCompile Include="CXml\XmlNode.cpp" />
+    <ClCompile Include="CXml\XmlNodes.cpp" />
+    <ClCompile Include="CXml\Xsl.cpp" />
     <ClCompile Include="EventItem.cpp" />
     <ClCompile Include="EventSetting.cpp" />
     <ClCompile Include="MissionAdd.cpp" />

@@ -14,11 +14,12 @@
 
 IMPLEMENT_DYNAMIC(MissionStart, CDialogEx)
 
-MissionStart::MissionStart(MissionVersionItem* currentMissionVersionItem, CWnd* pParent /*=nullptr*/)
+MissionStart::MissionStart(MissionVersionItem* currentMissionVersionItem, ProgressingMissionStartingData* pmsd /*=nullptr*/, CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MISSION_START_DIALOG, pParent)
 {
 	this->currentMissionVersionItem = currentMissionVersionItem;
 	this->pParent = pParent;
+	this->pmsd = pmsd;
 
 	curentMissionList = currentMissionVersionItem->GetMission();
 	nMissionCount = 0;
@@ -30,6 +31,17 @@ MissionStart::~MissionStart()
 	{
 		delete missionListCtrl;
 		missionListCtrl = nullptr;
+	}
+
+	if (pmsd)
+	{
+		delete pmsd;
+		pmsd = nullptr;
+	}
+
+	for (int i = 0; i < (int)curentMissionList.size(); i++)
+	{
+		curentMissionList.at(i)->SetMissionPerformer(_T(""));
 	}
 }
 
@@ -152,10 +164,21 @@ BOOL MissionStart::OnInitDialog()
 
 	missionManager = (CMissionManagerDlg*)pParent;
 
+
+	LoadProgressingMissionData();
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
+
+void MissionStart::LoadProgressingMissionData()
+{
+	if (pmsd != nullptr)
+	{
+
+	}
+}
 
 void MissionStart::OnOK()
 {
@@ -213,6 +236,11 @@ void MissionStart::OnBnClickedButtonStartExtract()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
+	if (curentMissionList.empty())
+	{
+		AfxMessageBox(_T("등록된 미션이 없습니다."), MB_OK | MB_ICONSTOP);
+		return;
+	}
 
 	CString strMissionUserName;
 
@@ -285,7 +313,7 @@ void MissionStart::OnBnClickedButtonStartExtract()
 
 		return;
 	}
-
+	extractMission->SetMissionPerformer(strMissionUserName);
 	missionListCtrl->InsertItem(extractMission, strMissionUserName);
 	nMissionCount++;
 	CString strMissionCount;
@@ -297,6 +325,17 @@ void MissionStart::OnBnClickedButtonStartExtract()
 void MissionStart::OnBnClickedButtonSheildExtract()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	CString strMissionUserName;
+
+	m_edit_mission_performer.GetWindowTextW(strMissionUserName);
+
+	if (strMissionUserName.IsEmpty())
+	{
+		AfxMessageBox(_T("수행자를 입력 해 주세요."), MB_OK | MB_ICONSTOP);
+		m_edit_mission_performer.SetFocus();
+		return;
+	}
 
 	if (sheildList.size() == 0)
 	{
@@ -318,6 +357,8 @@ void MissionStart::OnBnClickedButtonSheildExtract()
 	int nSheildIndex = 0;
 
 	sheildList.erase(sheildList.begin() + nSheildIndex);
+
+	extractSheild->SetMissionPerformer(strMissionUserName);
 
 	CString strSheild;
 	int nSheildCount = (int)sheildList.size();

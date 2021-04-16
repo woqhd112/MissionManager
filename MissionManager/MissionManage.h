@@ -9,11 +9,12 @@ class MissionManage : public CDialogEx
 	DECLARE_DYNAMIC(MissionManage)
 
 	friend class MissionAdd;
+	typedef std::vector<MissionVersionItem*> VersionList;
 	typedef std::vector<MissionItem*> MissionList;
 	typedef std::vector<CString> RandomTextList;
 
 public:
-	MissionManage(MissionVersionItem* cMissionVersionItem, CRect parentRect, CWnd* pParent = nullptr);   // 표준 생성자입니다.
+	MissionManage(VersionList cVersionList, MissionVersionItem* cMissionVersionItem, CRect parentRect, CWnd* pParent = nullptr);   // 표준 생성자입니다.
 	virtual ~MissionManage();
 
 private:
@@ -39,6 +40,7 @@ private:
 	CButton m_radio_level_middle;
 	CButton m_radio_level_hard;
 
+	VersionList cVersionList;
 	MissionVersionItem* cMissionVersionItem;
 	MissionList m_cMissionList;
 	MissionList m_cNewMissionList;

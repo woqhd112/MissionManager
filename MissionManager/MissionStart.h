@@ -13,7 +13,32 @@ class MissionStart : public CDialogEx
 	typedef std::vector<MissionItem*> MissionList;
 
 public:
-	MissionStart(MissionVersionItem* currentMissionVersionItem, CWnd* pParent = nullptr);   // 표준 생성자입니다.
+
+	struct HavingMission
+	{
+		MissionItem* havingMission;
+		CString strMissionPerformer;
+		CString strEventText;
+		bool bUsingEvent;
+	};
+
+	typedef std::vector<HavingMission*> HavingMissionList;
+
+	struct ProgressingMissionStartingData
+	{
+		HavingMissionList havingMissionList;
+		HavingMissionList havingSheildList;
+		CString strMissionPerformer;
+		CString strMissionText;
+		int nMissionOutPrefixCount;
+		int nMissionOutSuffixCount;
+		int nSheildPrefixCount;
+		int nSheildSuffixCount;
+		int nHavingMissionCount;
+		int nHavingSheildCount;
+	};
+
+	MissionStart(MissionVersionItem* currentMissionVersionItem, ProgressingMissionStartingData* pmsd = nullptr, CWnd* pParent = nullptr);   // 표준 생성자입니다.
 	virtual ~MissionStart();
 
 // 대화 상자 데이터입니다.
@@ -22,6 +47,7 @@ public:
 #endif
 
 public:
+
 
 
 private:
@@ -60,7 +86,12 @@ private:
 
 	COLORREF currentColor;
 
+	ProgressingMissionStartingData* pmsd;
+
 	int nMissionCount;
+
+
+	void LoadProgressingMissionData();
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.

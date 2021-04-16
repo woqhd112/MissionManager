@@ -7,6 +7,7 @@
 #include "CustomStatic.h"
 #include "CustomEdit.h"
 #include "MissionVersionItem.h"
+#include "CustomXml.h"
 
 
 // CMissionManagerDlg 대화 상자
@@ -16,6 +17,7 @@ class CMissionManagerDlg : public CDialogEx
 	typedef std::vector<MissionVersionItem*> VersionList;
 	typedef std::vector<MissionItem*> MissionList;
 	typedef std::vector<CString> RandomTextList;
+	//typedef std::vector<MissionStart::HavingMission*> HavingMissionList;
 
 public:
 	CMissionManagerDlg(CWnd* pParent = nullptr);	// 표준 생성자입니다.
@@ -49,6 +51,7 @@ private:
 
 	void InitList();
 	void LoadVersionList();
+	bool CreateDefaultVersionListXml(CMarkup* markUp, CString strFilePath);
 
 protected:
 	HICON m_hIcon;
@@ -66,4 +69,9 @@ public:
 	afx_msg void OnBnClickedButtonMainMissionManage();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	afx_msg void OnBnClickedButtonMainMissionStart();
+	afx_msg void OnClickMenuNewVersion();
+	afx_msg void OnClickMenuMissionStart();
+	afx_msg void OnClickMenuMissionManage();
+	afx_msg void OnClickMenuVersionSelect();
+	afx_msg void OnClickMenuProgressMissionLoad();
 };
